@@ -59,8 +59,8 @@ public class Utils {
     }
 
     public static void startDownload(Context context, String url) {
+        showMsg(context,"Start Download");
         final long refer;
-
         String fileName = getFileName(url);
         Log.d(TAG,"fileName:"+fileName);
         final DownloadManager downloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
@@ -85,14 +85,14 @@ public class Utils {
                     //get status of the download
                     int columnIndex = cursor.getColumnIndex(DownloadManager.COLUMN_STATUS);
                     int status = cursor.getInt(columnIndex);
-                    int filenameIndex = cursor.getColumnIndex(DownloadManager.COLUMN_LOCAL_FILENAME);
-                    String saveFilePath = cursor.getString(filenameIndex);
-                    int columnReason = cursor.getColumnIndex(DownloadManager.COLUMN_REASON);
-                    int reason = cursor.getInt(columnReason);
+//                    int filenameIndex = cursor.getColumnIndex(DownloadManager.COLUMN_LOCAL_FILENAME);
+//                    String saveFilePath = cursor.getString(filenameIndex);
+//                    int columnReason = cursor.getColumnIndex(DownloadManager.COLUMN_REASON);
+//                    int reason = cursor.getInt(columnReason);
                     switch (status) {
                         case DownloadManager.STATUS_SUCCESSFUL:
                             if (context != null)
-                                Toast.makeText(context, "Download Completed", Toast.LENGTH_SHORT).show();
+                            showMsg(context,"Download Completed");
                             break;
                         case DownloadManager.STATUS_FAILED:
                             // do something                            break;
