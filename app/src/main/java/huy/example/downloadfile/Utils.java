@@ -59,14 +59,14 @@ public class Utils {
     }
 
     public static void startDownload(Context context, String url) {
-        showMsg(context,"Start Download");
+        showMsg(context, "Start Download");
         final long refer;
         String fileName = getFileName(url);
-        Log.d(TAG,"fileName:"+fileName);
+        Log.d(TAG, "fileName:" + fileName);
         final DownloadManager downloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
         Uri uri = Uri.parse(url);
         DownloadManager.Request request = new DownloadManager.Request(uri);
-        request.setDescription(fileName).setTitle(getMsg(context,R.string.app_name));
+        request.setDescription(fileName).setTitle(getMsg(context, R.string.app_name));
         request.setDestinationInExternalFilesDir(context, Environment.DIRECTORY_DOWNLOADS, fileName);
         request.setVisibleInDownloadsUi(true);
         request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
@@ -92,10 +92,11 @@ public class Utils {
                     switch (status) {
                         case DownloadManager.STATUS_SUCCESSFUL:
                             if (context != null)
-                            showMsg(context,"Download Completed");
+                                showMsg(context, "Download Completed");
                             break;
                         case DownloadManager.STATUS_FAILED:
-                            // do something                            break;
+                            showMsg(context, "Download Fail");
+                            break;
                         case DownloadManager.STATUS_PAUSED:
                             // do something                            break;
                         case DownloadManager.STATUS_PENDING:
@@ -108,6 +109,7 @@ public class Utils {
         };
         context.registerReceiver(downloadcomplete, intentFilter);
     }
+
     public static String getMsg(Context context, int id) {
         if (context == null) return "";
         return context.getResources().getString(id);
